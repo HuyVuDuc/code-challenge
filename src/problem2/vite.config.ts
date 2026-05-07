@@ -4,7 +4,7 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/<repo>/",
+  base: "/code-challenge/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "."),
