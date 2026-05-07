@@ -7,20 +7,20 @@ It is important that you minimally attempt the problems, even if you do not arri
 
 ## Overview ##
 
-### Problem 1
+### Problem 1: Three ways to sum to n
 
 Implements summation from `1..n` with three approaches: Gauss formula, iterative loop, and array-based reduce.
 
 **[View Solution →](https://github.com/HuyVuDuc/code-challenge/blob/main/src/problem1/index.ts)**
 
-### Problem 2
+### Problem 2: Fancy Form
 
 Builds a mock-driven token swap frontend for selecting assets, requesting quotes, and submitting swaps. Tech stack:
 React 19, TypeScript, Redux Toolkit, RTK Query, Formik, Yup, MSW, i18next, Vite, and Tailwind CSS.
 
 **[View Project →](https://github.com/HuyVuDuc/code-challenge/blob/main/src/problem2/README.md)** | **[Live Demo →](https://huyvuduc.github.io/code-challenge/)**
 
-### Problem 3
+### Problem 3: Messy React
 
 Finds logic, typing, and performance issues in a messy React wallet page, then refactors it with safer types, correct
 filtering/sorting, stable keys, and clearer rendering flow.
