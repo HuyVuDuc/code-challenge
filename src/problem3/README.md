@@ -1,4 +1,4 @@
-# WalletPage Code Review and Refactor
+# Problem 3: Messy React — Analysis & Refactor
 
 ## Issues Found
 
@@ -47,6 +47,8 @@ interface FormattedWalletBalance extends WalletBalance {
 
 interface Props extends BoxProps {}
 
+const DEFAULT_PRIORITY = -99;
+
 const PRIORITY_BY_BLOCKCHAIN: Record<string, number> = {
   Osmosis: 100,
   Ethereum: 50,
@@ -56,7 +58,7 @@ const PRIORITY_BY_BLOCKCHAIN: Record<string, number> = {
 };
 
 const getPriority = (blockchain: string): number => {
-  return PRIORITY_BY_BLOCKCHAIN[blockchain] ?? -99;
+  return PRIORITY_BY_BLOCKCHAIN[blockchain] ?? DEFAULT_PRIORITY;
 };
 
 const WalletPage: React.FC<Props> = (props) => {
@@ -70,15 +72,16 @@ const WalletPage: React.FC<Props> = (props) => {
       .map((balance) => ({
         ...balance,
         priority: getPriority(balance.blockchain),
-        formatted: balance.amount.toFixed(),
+        formatted: balance.amount.toFixed(2),
       }))
       .filter((balance) => balance.priority > -99 && balance.amount > 0)
-      .sort((lhs, rhs) => rhs.priority - lhs.priority);
+      .sort((a, b) => b.priority - a.priority);
   }, [balances]);
 
   const rows = useMemo(() => {
     return formattedBalances.map((balance) => {
-      const usdValue = (prices[balance.currency] ?? 0) * balance.amount;
+      const price = prices[balance.currency] ?? 0;
+      const usdValue = price * balance.amount;
 
       return (
         <WalletRow
