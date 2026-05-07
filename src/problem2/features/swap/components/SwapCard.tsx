@@ -286,13 +286,15 @@ export function SwapCard() {
             }}
           />
 
-          <div className="flex items-center justify-between px-1 text-sm text-slate-500">
-            <span>{sendFiatValue > 0 ? formatCurrency(sendFiatValue) : t("swap.awaitingInput")}</span>
+          <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 px-1 text-sm text-slate-500">
+            <span className="min-w-0 text-left leading-5 break-words">
+              {sendFiatValue > 0 ? formatCurrency(sendFiatValue) : t("swap.awaitingInput")}
+            </span>
             <Button
               type="button"
               size="icon"
               variant="secondary"
-              className="h-10 w-10 rounded-full"
+              className="col-start-2 h-10 w-10 rounded-full justify-self-center"
               onClick={() => {
                 lastQuotedKeyRef.current = "";
                 const nextFromToken = values.toToken;
@@ -314,7 +316,7 @@ export function SwapCard() {
             >
               <ArrowDownUp className="h-4 w-4" />
             </Button>
-            <span>
+            <span className="min-w-0 text-right leading-5 break-words">
               {pricesFetching && !pricesLoading ? t("swap.refreshingPrices") : t("swap.marketReady")}
             </span>
           </div>
@@ -337,11 +339,11 @@ export function SwapCard() {
             }}
           />
 
-          <div className="flex items-center justify-between px-1 text-sm text-slate-500">
-            <span>
+          <div className="grid grid-cols-2 items-center gap-3 px-1 text-sm text-slate-500">
+            <span className="min-w-0 text-left leading-5 break-words">
               {receiveFiatValue > 0 ? formatCurrency(receiveFiatValue) : t("swap.quoteHint")}
             </span>
-            <span className="inline-flex items-center gap-2">
+            <span className="inline-flex min-w-0 items-center justify-end gap-2 text-right leading-5 break-words">
               <ShieldCheck className="h-4 w-4 text-emerald-600" />
               {t("swap.secureRoute")}
             </span>
@@ -385,7 +387,7 @@ export function SwapCard() {
 
       {confirmOpen ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/35 px-4 backdrop-blur-sm">
-          <div className="w-full max-w-sm rounded-[28px] border border-white/70 bg-white p-5 shadow-2xl">
+          <div className="w-full max-w-2xl rounded-[28px] border border-white/70 bg-white p-5 shadow-2xl">
             <h3 className="text-lg font-semibold text-slate-950">{t("swap.confirmTitle")}</h3>
             <p className="mt-2 text-sm leading-relaxed text-slate-600">
               {t("swap.confirmDescription", {
@@ -395,6 +397,17 @@ export function SwapCard() {
                 toToken: values.toToken,
               })}
             </p>
+            <p className="mt-2 text-sm leading-relaxed text-slate-500">
+              {t("swap.confirmMessage")}
+            </p>
+            <div className="mt-4">
+              <QuoteSummary
+                quote={quoteResult}
+                fromToken={values.fromToken}
+                toToken={values.toToken}
+                loading={false}
+              />
+            </div>
             <div className="mt-5 flex justify-end gap-2">
               <Button
                 type="button"
