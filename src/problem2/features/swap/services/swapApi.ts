@@ -45,7 +45,7 @@ function normalizeTokens(records: RawPriceRecord[]): TokenOption[] {
 export const swapApi = createApi({
     reducerPath: "swapApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: "/",
+        baseUrl: import.meta.env.BASE_URL,
         prepareHeaders: (headers, {getState}) => {
             const state = getState() as RootState;
             headers.set("x-mock-mode", state.swapUi.mockMode);
