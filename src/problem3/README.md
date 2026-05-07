@@ -138,31 +138,11 @@ const WalletPage: React.FC<Props> = (props) => {
 
 ---
 
-## Further Implementation
+## Further Improvements
 
-### 1. Extract Priority Logic
 
-Move blockchain priority logic into a separate utility file.
 
-```ts
-export const PRIORITY_BY_BLOCKCHAIN: Record<string, number> = {
-  Osmosis: 100,
-  Ethereum: 50,
-  Arbitrum: 30,
-  Zilliqa: 20,
-  Neo: 20,
-};
-
-export const getPriority = (blockchain: string): number => {
-  return PRIORITY_BY_BLOCKCHAIN[blockchain] ?? -99;
-};
-```
-
-This makes the priority system easier to test and reuse.
-
----
-
-### 2. Use Stronger Blockchain Types
+### 1. Use Stronger Blockchain Types
 
 Instead of using a generic `string`, define supported blockchains explicitly.
 
@@ -185,7 +165,7 @@ This improves type safety while still allowing unknown chains if needed.
 
 ---
 
-### 3. Extract Balance Formatting
+### 2. Extract Balance Formatting
 
 Formatting can be moved into a helper function.
 
@@ -201,29 +181,8 @@ This keeps the component cleaner and makes formatting behavior easier to test.
 
 ---
 
-### 4. Handle Missing Prices Explicitly
 
-The current fallback uses `0` when a price is missing:
-
-```ts
-const usdValue = (prices[balance.currency] ?? 0) * balance.amount;
-```
-
-A better implementation may display `"N/A"` or a loading state when price data is unavailable.
-
-Example:
-
-```ts
-const price = prices[balance.currency];
-
-const usdValue = price == null ? undefined : price * balance.amount;
-```
-
-This avoids silently showing `$0` for assets that simply do not have price data yet.
-
----
-
-### 5. Add Unit Tests
+### 3. Add Unit Tests
 
 Recommended test cases:
 
@@ -236,7 +195,7 @@ Recommended test cases:
 
 ---
 
-### 6. Consider Virtualization for Large Lists
+### 4. Consider Virtualization for Large Lists
 
 If the wallet contains many balances, rendering all rows at once may become expensive.
 
@@ -249,7 +208,7 @@ This reduces DOM nodes and improves rendering performance for large datasets.
 
 ---
 
-### 7. Improve Number Formatting
+### 5. Improve Number Formatting
 
 Instead of using:
 
